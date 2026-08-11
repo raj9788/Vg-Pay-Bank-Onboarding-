@@ -2,6 +2,7 @@ import React from 'react';
 import Mermaid from './Mermaid';
 import { ShieldAlert, Info, AlertTriangle, FileText } from 'lucide-react';
 import { motion } from 'motion/react';
+import { DeviceSimulator } from './DeviceSimulator';
 
 const swimlaneChart = `
 sequenceDiagram
@@ -266,6 +267,8 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
+          <DeviceSimulator />
+
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.1 Hardware Anatomy &amp; Setup</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Box Contents:</strong> 1 Unit of Sound Box S1.</li>
