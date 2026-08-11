@@ -56,7 +56,9 @@ export default function App() {
         </div>
 
         {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto bg-grid-pattern bg-watermark relative">
+          <div className="absolute inset-0 bg-brand-bg/80 pointer-events-none -z-10" />
+          <div className="finance-circuit-bg text-brand-text" />
           <HandbookContent />
         </main>
       </div>

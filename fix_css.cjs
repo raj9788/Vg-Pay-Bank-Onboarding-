@@ -1,61 +1,9 @@
-@import "tailwindcss";
+const fs = require('fs');
+let code = fs.readFileSync('src/index.css', 'utf8');
 
-@theme {
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
-  
-  --color-brand-bg: var(--brand-bg);
-  --color-brand-panel: var(--brand-panel);
-  --color-brand-sidebar: var(--brand-sidebar);
-  --color-brand-border: var(--brand-border);
-  --color-brand-border-strong: var(--brand-border-strong);
-  
-  --color-brand-text: var(--brand-text);
-  --color-brand-text-muted: var(--brand-text-muted);
-  --color-brand-text-dim: var(--brand-text-dim);
-  
-  --color-brand-accent: var(--brand-accent);
-  --color-brand-accent-bg: var(--brand-accent-bg);
-  --color-brand-accent-text: var(--brand-accent-text);
-}
-
-:root {
-  --brand-bg: #f9fafb;
-  --brand-panel: #ffffff;
-  --brand-sidebar: #ffffff;
-  --brand-border: #e5e7eb;
-  --brand-border-strong: #d1d5db;
-  
-  --brand-text: #111827;
-  --brand-text-muted: #4b5563;
-  --brand-text-dim: #6b7280;
-  
-  --brand-accent: #d97706;
-  --brand-accent-bg: #fef3c7;
-  --brand-accent-text: #92400e;
-}
-
-:root.dark {
-  --brand-bg: #080808;
-  --brand-panel: #111111;
-  --brand-sidebar: #0c0c0c;
-  --brand-border: rgba(255, 255, 255, 0.1);
-  --brand-border-strong: rgba(255, 255, 255, 0.2);
-  
-  --brand-text: #ffffff;
-  --brand-text-muted: #a1a1aa;
-  --brand-text-dim: #71717a;
-  
-  --brand-accent: #f59e0b;
-  --brand-accent-bg: rgba(245, 158, 11, 0.1);
-  --brand-accent-text: #fcd34d;
-}
-
-body {
-  @apply bg-brand-bg text-brand-text font-sans;
-}
-
-.bg-grid-pattern {
+// replace the .bg-grid-pattern and everything below it
+const parts = code.split('.bg-grid-pattern');
+let newCSS = parts[0] + `.bg-grid-pattern {
   background-image: 
     linear-gradient(to right, var(--brand-border) 1px, transparent 1px),
     linear-gradient(to bottom, var(--brand-border) 1px, transparent 1px),
@@ -116,3 +64,6 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 h 20 v 20 h 20' fill='none' stroke='currentColor' stroke-width='1' /%3E%3Ccircle cx='50' cy='30' r='2' fill='currentColor' /%3E%3Cpath d='M90 90 h -20 v -20 h -20' fill='none' stroke='currentColor' stroke-width='1' /%3E%3Ccircle cx='50' cy='70' r='2' fill='currentColor' /%3E%3C/svg%3E");
   background-size: 150px 150px;
 }
+`;
+
+fs.writeFileSync('src/index.css', newCSS);

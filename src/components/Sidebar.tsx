@@ -54,7 +54,7 @@ export function Sidebar({ className, onLinkClick }: SidebarProps) {
     <div className={cn("flex flex-col h-full bg-brand-sidebar border-r border-brand-border", className)}>
       <div className="p-6 border-b border-brand-border">
         <div className="flex items-center gap-2 mb-1">
-          <div className="w-8 h-8 bg-amber-600 rounded flex items-center justify-center font-bold text-black">
+          <div className="w-8 h-8 bg-amber-600 rounded flex items-center justify-center font-bold text-black shadow-lg shadow-amber-500/20">
             VG
           </div>
           <span className="text-lg font-semibold tracking-tight text-brand-text">VG PAY</span>
@@ -73,7 +73,7 @@ export function Sidebar({ className, onLinkClick }: SidebarProps) {
                 href={`#${section.id}`}
                 onClick={(e) => handleClick(e, section.id)}
                 className={cn(
-                  "block px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                  "block px-3 py-2 text-sm font-medium rounded-md transition-all duration-300 transform hover:translate-x-1",
                   isActive
                     ? "bg-brand-accent-bg text-brand-accent-text"
                     : "text-brand-text-muted hover:text-brand-text hover:bg-brand-text/5"

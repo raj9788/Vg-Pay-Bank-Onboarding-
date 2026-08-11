@@ -74,7 +74,7 @@ export function HandbookContent() {
     >
       {/* Document Header */}
       <header className="space-y-4 border-b border-brand-border pb-10">
-        <h1 className="text-4xl sm:text-5xl font-serif italic font-light tracking-tight text-brand-text">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-serif italic font-light tracking-tight text-brand-text">
           VG Pay Bank Onboarding Handbook
         </h1>
         <p className="text-xl text-brand-text-muted font-light">
@@ -83,13 +83,13 @@ export function HandbookContent() {
       </header>
 
       {/* Section 1 */}
-      <section id="section-1" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-1" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           1. Company Overview
         </h2>
         
         <div className="space-y-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">Who We Are</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">Who We Are</h3>
           <p className="leading-relaxed">
             <strong>Vishwaguru Infotech</strong> is a startup IT Solutioning and consultancy services company with extensive experience in the design, development, implementation, and maintenance of enterprise web and mobile applications. Our primary focus is on eGovernance and Digital Payments. Our founders possess profound experience with global world-class banking and financial institutions.
           </p>
@@ -99,7 +99,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">Vision & Mission</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">Vision & Mission</h3>
           <ul className="list-disc pl-6 space-y-2 leading-relaxed">
             <li><strong>Motto:</strong> To serve people in eGovernance and digital payments areas.</li>
             <li><strong>Focus:</strong> Design and development of user-friendly and secure web and mobile eGovernance and payment applications.</li>
@@ -107,35 +107,35 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">The Team</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">The Team</h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border">
+            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-1">
               <strong className="block text-brand-text text-lg mb-1">Mr. Rajendra Gangarde</strong>
               <span className="text-brand-accent text-sm font-semibold uppercase tracking-wider block mb-2">Founder & CEO</span>
               <span className="text-brand-text-muted text-sm">Technically sophisticated professional with 27+ years of demonstrated experience.</span>
             </li>
-            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border">
+            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-1">
               <strong className="block text-brand-text text-lg mb-1">Mr. Vikas Modha</strong>
               <span className="text-brand-accent text-sm font-semibold uppercase tracking-wider block mb-2">CTO</span>
               <span className="text-brand-text-muted text-sm">Astute professional with 23+ years of hands-on experience in the Banking industry.</span>
             </li>
-            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border">
+            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-1">
               <strong className="block text-brand-text text-lg mb-1">Mr. Ravindra Kulkarni</strong>
               <span className="text-brand-accent text-sm font-semibold uppercase tracking-wider block mb-2">GM HR</span>
               <span className="text-brand-text-muted text-sm">23+ years in leading teams and managing testing efforts for efficient project execution.</span>
             </li>
-            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border">
+            <li className="bg-brand-panel p-4 rounded-xl border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-1">
               <strong className="block text-brand-text text-lg mb-1">Mr. Deepak Desai</strong>
               <span className="text-brand-accent text-sm font-semibold uppercase tracking-wider block mb-2">Delivery Director</span>
               <span className="text-brand-text-muted text-sm">Results-driven Senior Project Manager with a proven record of delivering projects on time and budget.</span>
             </li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 2 */}
-      <section id="section-2" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-2" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           2. High-Level Onboarding Process
         </h2>
         
@@ -144,7 +144,7 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-6 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">Onboarding Journey (Post-Agreement)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">Onboarding Journey (Post-Agreement)</h3>
           
           <div className="border-l-2 border-amber-500/30 pl-6 space-y-8 relative">
             
@@ -197,16 +197,16 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">Swimlane Diagram</h3>
-          <div className="bg-brand-panel border border-brand-border rounded-xl p-4 shadow-sm">
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">Swimlane Diagram</h3>
+          <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-xl p-4 shadow-sm">
             <Mermaid chart={swimlaneChart} />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 3 */}
-      <section id="section-3" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-3" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           3. Architecture & User Hierarchy
         </h2>
         <p className="leading-relaxed">
@@ -214,8 +214,8 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">3.1 System Architecture</h3>
-          <div className="bg-brand-panel border border-brand-border rounded-xl p-4 shadow-sm">
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.1 System Architecture</h3>
+          <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-xl p-4 shadow-sm">
             <Mermaid chart={architectureChart} />
           </div>
           <p className="leading-relaxed mt-4">
@@ -224,7 +224,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">3.2 System Architecture Details</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.2 System Architecture Details</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Direct Bank Transfers:</strong> VG Pay does not hold, route, or settle funds. All UPI and digital transfers are processed directly between the payer's bank and the merchant's bank account. VG Pay acts strictly as a real-time notification and IoT management layer.</li>
             <li><strong className="text-brand-text">Success-Only Triggers:</strong> The VG Pay system is designed exclusively to trigger the Soundbox audio. Therefore, it only expects to receive webhooks for <strong className="text-brand-text">SUCCESSFUL</strong> transactions. Failed or pending transactions should not be pushed to VG Pay.</li>
@@ -232,33 +232,33 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">3.3 User Hierarchy (Roles & Permissions)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.3 User Hierarchy (Roles & Permissions)</h3>
           <p className="leading-relaxed text-brand-text-muted">Every user in the system is assigned specific roles that govern their access:</p>
           
           <div className="grid gap-4 mt-4">
-            <div className="bg-brand-panel border border-brand-border rounded-lg p-4 flex items-start space-x-3">
+            <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-lg p-4 flex items-start space-x-3">
               <div className="bg-purple-500/10 text-purple-400 px-2 py-1 rounded text-xs font-bold font-mono mt-0.5 whitespace-nowrap">SUPER_ADMIN</div>
               <p className="text-sm text-brand-text">Supreme access to VG Pay. Manages all banks, devices, and global configurations.</p>
             </div>
-            <div className="bg-brand-panel border border-brand-border rounded-lg p-4 flex items-start space-x-3">
+            <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-lg p-4 flex items-start space-x-3">
               <div className="bg-blue-500/10 text-blue-400 px-2 py-1 rounded text-xs font-bold font-mono mt-0.5 whitespace-nowrap">PSP_ADMIN</div>
               <p className="text-sm text-brand-text">Top-level administrator for a specific <code className="text-brand-accent">BankPartner</code>. Manages regional operations, field agents, and can view aggregate reports for their bank.</p>
             </div>
-            <div className="bg-brand-panel border border-brand-border rounded-lg p-4 flex items-start space-x-3">
+            <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-lg p-4 flex items-start space-x-3">
               <div className="bg-orange-500/10 text-orange-400 px-2 py-1 rounded text-xs font-bold font-mono mt-0.5 whitespace-nowrap">PSP_AGENT</div>
               <p className="text-sm text-brand-text">Field agent using the Agent Mobile App to onboard pre-verified merchants and map Soundboxes.</p>
             </div>
-            <div className="bg-brand-panel border border-brand-border rounded-lg p-4 flex items-start space-x-3">
+            <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-lg p-4 flex items-start space-x-3">
               <div className="bg-white/20 text-brand-text px-2 py-1 rounded text-xs font-bold font-mono mt-0.5 whitespace-nowrap">MERCHANT</div>
               <p className="text-sm text-brand-text">The end-user receiving payments. Currently, the Merchant App is strictly for viewing transaction history. Since funds settle directly into the merchant's bank account, the app is read-only regarding financial operations.</p>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 4 */}
-      <section id="section-4" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-4" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           4. Payment Soundbox (S1) - Device Overview &amp; Manual
         </h2>
         <p className="leading-relaxed">
@@ -266,7 +266,7 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">4.1 Hardware Anatomy &amp; Setup</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.1 Hardware Anatomy &amp; Setup</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Box Contents:</strong> 1 Unit of Sound Box S1.</li>
             <li><strong className="text-brand-text">Front View:</strong> Large QR code for payments (BHIM UPI). Top LEDs: Status RGB (Left), Network Green (Center), Power Red (Right).</li>
@@ -285,7 +285,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">4.2 Power Up Sequence &amp; LED Indicators</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.2 Power Up Sequence &amp; LED Indicators</h3>
           
           <h4 className="font-medium text-brand-text mb-2">Boot Phases</h4>
           <ol className="list-decimal pl-6 space-y-2 text-brand-text-muted">
@@ -309,47 +309,47 @@ export function HandbookContent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-border bg-brand-panel">
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">Green (Network)</td>
                   <td className="px-6 py-3">Slow blink</td>
                   <td className="px-6 py-3">Searching for network.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">Green (Network)</td>
                   <td className="px-6 py-3">Fast blink (3-4/sec)</td>
                   <td className="px-6 py-3">Registered on 4G/LTE. Ready.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">Red (Power)</td>
                   <td className="px-6 py-3">Solid / Blinking</td>
                   <td className="px-6 py-3">Charging / Battery &lt; 20%.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-red-400">Red</td>
                   <td className="px-6 py-3">No SIM detected.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-purple-400">Purple</td>
                   <td className="px-6 py-3">Onboarding incomplete/stuck.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-orange-400">Orange</td>
                   <td className="px-6 py-3">Firmware update (FOTA) failed/incomplete.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-pink-100">Roseate White</td>
                   <td className="px-6 py-3">Normal operation (System OK).</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-cyan-400">Cyan</td>
                   <td className="px-6 py-3">Network connected, but MQTT unreachable.</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-brand-text">RGB (Status)</td>
                   <td className="px-6 py-3 text-blue-400">Blue</td>
                   <td className="px-6 py-3">Server connected, ready for payments.</td>
@@ -360,7 +360,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">4.3 Technical Specifications</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.3 Technical Specifications</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Hardware:</strong> Quectel EC200U Module, 4G LTE Cat-1 (2G fallback), 2000mAh Li-ion battery (3V cutoff).</li>
             <li><strong className="text-brand-text">Firmware:</strong> 30-min Heartbeat interval, OTA security &amp; firmware integrity.</li>
@@ -369,7 +369,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">4.4 Troubleshooting Guide</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.4 Troubleshooting Guide</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Not turning on:</strong> Charge for 30 mins using 5V-2A. If charging LED is off, try a different socket.</li>
             <li><strong className="text-brand-text">Not sending data to server:</strong> Check Green LED (Fast blink = OK). If Cyan, MQTT disconnected. Press RESET to restart network stack.</li>
@@ -377,12 +377,12 @@ export function HandbookContent() {
             <li><strong className="text-brand-text">Repeated Restarts:</strong> Charge device. Check for loose SIM. Press RESET to clear corrupt configuration.</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
 
             {/* Section 5 */}
-      <section id="section-5" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-5" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           5. Technical Integration
         </h2>
         <p className="leading-relaxed">
@@ -390,7 +390,7 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">5.1 Environment URLs</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.1 Environment URLs</h3>
           <ul className="list-disc pl-6 space-y-2 text-brand-text-muted">
             <li><strong className="text-brand-text">Main API Gateway:</strong> <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">https://api.vgpayglobal.com/</code></li>
             <li><strong className="text-brand-text">Payment / Transaction Services:</strong> <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">https://payment.vgpayglobal.com/</code></li>
@@ -402,7 +402,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">5.2 Payment Success Webhook (Bank &rarr; VG Pay)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.2 Payment Success Webhook (Bank &rarr; VG Pay)</h3>
           <p className="leading-relaxed">
             When a UPI payment successfully credits the merchant's account, the Bank must immediately call VG Pay's Payment Service.
           </p>
@@ -443,7 +443,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">5.3 Merchant Management (REST API)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.3 Merchant Management (REST API)</h3>
           <p className="leading-relaxed">
             Agents typically create merchants via the Mobile App, hitting the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">POST /api/merchants</code> endpoint.
           </p>
@@ -463,7 +463,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">5.4 Standard Error Codes</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.4 Standard Error Codes</h3>
           <p className="leading-relaxed text-brand-text-muted">
             The VG Pay APIs utilize standard HTTP status codes. Expected responses include:
           </p>
@@ -477,11 +477,11 @@ export function HandbookContent() {
             <li><strong className="text-brand-text">500 Internal Server Error:</strong> Unexpected server-side failure.</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 6 */}
-      <section id="section-6" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-6" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           6. Security & Infrastructure Checklist
         </h2>
         
@@ -494,7 +494,7 @@ export function HandbookContent() {
         </div>
 
         <ul className="space-y-4">
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -503,7 +503,7 @@ export function HandbookContent() {
               <span className="text-brand-text-muted text-sm">The VG Pay backend is currently hosted on AWS Mumbai, ensuring all merchant and transaction data is stored strictly within India to comply with data localization regulations. Additionally, the microservices architecture allows the VG Pay backend to be deployed On-Premise directly on the Bank's own servers if strict internal policies require it.</span>
             </div>
           </li>
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -512,7 +512,7 @@ export function HandbookContent() {
               <span className="text-brand-text-muted text-sm">The VG Pay Agent and Merchant mobile applications natively enforce Root & Jailbreak Detection blocking execution on compromised devices. Access is further gated by mandatory Biometric Authentication (Fingerprint/FaceID).</span>
             </div>
           </li>
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -521,7 +521,7 @@ export function HandbookContent() {
               <span className="text-brand-text-muted text-sm">All VG Pay endpoints enforce HTTPS (TLS 1.2+). HTTP traffic is instantly dropped.</span>
             </div>
           </li>
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -530,7 +530,7 @@ export function HandbookContent() {
               <span className="text-brand-text-muted text-sm">Ensure personally identifiable information (PII) like <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">payerVpa</code> is masked or handled per compliance guidelines. Internally, the VG Pay backend encrypts sensitive data (like VPA and Payer Name) before storing it in the database.</span>
             </div>
           </li>
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -539,7 +539,7 @@ export function HandbookContent() {
               <span className="text-brand-text-muted text-sm">Bank Webhooks to VG Pay must be authenticated using HMAC SHA-256 signatures. The bank computes a hash of the payload using a pre-shared secret and passes it in the header (e.g., <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">X-Signature</code>). The VG Pay backend actively validates this signature before processing the event.</span>
             </div>
           </li>
-          <li className="flex items-start space-x-3">
+          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
             <div className="bg-white/10 p-2 rounded-full mt-0.5">
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
@@ -549,11 +549,11 @@ export function HandbookContent() {
             </div>
           </li>
         </ul>
-      </section>
+      </motion.section>
 
             {/* Section 7 */}
-      <section id="section-7" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-7" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           7. Merchant & Agent Onboarding Workflows
         </h2>
         <p className="leading-relaxed">
@@ -561,7 +561,7 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">7.1 Agent Provisioning Workflow</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">7.1 Agent Provisioning Workflow</h3>
           <ol className="list-decimal pl-5 space-y-4 text-brand-text marker:text-brand-accent marker:font-bold">
             <li className="pl-2">
               <strong className="text-brand-text block">Super Admin Creation:</strong>
@@ -579,7 +579,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">7.2 Merchant Onboarding Steps</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">7.2 Merchant Onboarding Steps</h3>
           <ol className="list-decimal pl-5 space-y-4 text-brand-text marker:text-brand-accent marker:font-bold">
             <li className="pl-2">
               <strong className="text-brand-text block">Merchant Registration (e-KYC):</strong>
@@ -603,10 +603,10 @@ export function HandbookContent() {
             </li>
           </ol>
         </div>
-      </section>
+      </motion.section>
 {/* Section 8 */}
-      <section id="section-8" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-8" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           8. Ticketing & Support Flow
         </h2>
         <p className="leading-relaxed">
@@ -614,7 +614,7 @@ export function HandbookContent() {
         </p>
 
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-serif italic text-brand-accent">7.1 End-to-End Ticketing Architecture</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">7.1 End-to-End Ticketing Architecture</h3>
           <ol className="list-decimal pl-5 space-y-4 text-brand-text marker:text-brand-accent marker:font-bold">
             <li className="pl-2">
               <strong className="text-brand-text block">Ticket Creation (Mobile App → VG Pay)</strong>
@@ -653,7 +653,7 @@ export function HandbookContent() {
         </div>
       
         <div className="space-y-4 pt-8">
-          <h3 className="text-lg font-serif italic text-brand-accent">8.2 SLAs and Escalation Matrix</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">8.2 SLAs and Escalation Matrix</h3>
           
           <h4 className="font-medium text-brand-text mb-2">8.2.1 Service Level Agreements (SLAs)</h4>
           <p className="leading-relaxed text-brand-text-muted mb-4">
@@ -670,19 +670,19 @@ export function HandbookContent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-border bg-brand-panel">
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-red-400">P1</td>
                   <td className="px-6 py-3">Device not functional (Business stopped)</td>
                   <td className="px-6 py-3">30 mins</td>
                   <td className="px-6 py-3">4 hours</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-amber-400">P2</td>
                   <td className="px-6 py-3">Partial impact (e.g., low volume)</td>
                   <td className="px-6 py-3">2 hours</td>
                   <td className="px-6 py-3">24 hours</td>
                 </tr>
-                <tr className="hover:bg-brand-sidebar/50">
+                <tr className="hover:bg-brand-text/5 transition-colors duration-200">
                   <td className="px-6 py-3 font-medium text-blue-400">P3</td>
                   <td className="px-6 py-3">Usage queries or informational</td>
                   <td className="px-6 py-3">4 hours</td>
@@ -710,73 +710,73 @@ export function HandbookContent() {
             <li><strong className="text-brand-text">Management:</strong> Handles critical escalations and Bank-level communication for P1/Major incidents.</li>
           </ul>
         </div>
-      </section>
+      </motion.section>
 
 
       {/* Section 9 */}
-      <section id="section-9" className="scroll-mt-24 space-y-6">
-        <h2 className="text-3xl font-serif italic text-brand-text border-b border-brand-border pb-2">
+      <motion.section id="section-9" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
+        <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text border-b border-brand-border pb-2">
           9. Pre-Go-Live Checklists
         </h2>
         
         <div className="grid md:grid-cols-2 gap-6 mt-6">
-          <div className="bg-brand-panel border border-brand-border rounded-xl p-6 shadow-sm">
+          <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-xl p-6 shadow-sm">
             <h3 className="text-xl font-semibold text-brand-accent mb-4 flex items-center gap-2">
               <svg className="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
               Bank IT / Network Team
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">IP Whitelisting completed for UAT and PROD.</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Bank switch updated to push <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">/api/transactions</code> to VG Pay on successful UPI credits.</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Webhook timeouts configured appropriately (recommend 3-5 seconds).</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Error handling built for 4xx and 5xx responses from VG Pay (refer to Section 5.4 Standard Error Codes).</span>
               </li>
             </ul>
           </div>
 
-          <div className="bg-brand-panel border border-brand-border rounded-xl p-6 shadow-sm">
+          <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-xl p-6 shadow-sm">
             <h3 className="text-xl font-semibold text-brand-accent mb-4 flex items-center gap-2">
               <svg className="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               VG Pay Operations
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight"><code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">BankPartner</code> created in PROD Database.</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Initial <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">BANK_ADMIN</code> user generated and credentials securely handed over.</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Inventory (Soundboxes) allocated to the Bank in the backend system.</span>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
                 <span className="text-brand-text text-sm leading-tight">Bank Admin trained and verified for Agent provisioning.</span>
               </li>
             </ul>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Section 10 */}
-      <section id="section-10" className="scroll-mt-24 space-y-6">
+      <motion.section id="section-10" className="scroll-mt-24 space-y-6" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, ease: "easeOut" }}>
         <div className="flex items-center gap-3 border-b border-brand-border pb-2">
           <FileText className="w-8 h-8 text-brand-accent" />
-          <h2 className="text-3xl font-serif italic text-brand-text">
+          <h2 className="text-4xl sm:text-5xl font-serif italic text-brand-text">
             10. Bank Information Collection Template
           </h2>
         </div>
@@ -785,7 +785,7 @@ export function HandbookContent() {
           Please fill out this template during Phase 1.
         </p>
 
-        <div className="bg-brand-panel border border-brand-border rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-brand-panel border border-brand-border hover:border-brand-border-strong hover:shadow-lg hover:shadow-brand-accent/5 transition-all duration-300 hover:-translate-y-0.5 rounded-xl overflow-hidden shadow-sm">
           <div className="bg-brand-panel px-6 py-4 border-b border-brand-border">
             <h3 className="text-lg font-bold text-brand-text">1. General Details</h3>
           </div>
@@ -843,7 +843,7 @@ export function HandbookContent() {
             <li><strong>Bi-directional Webhooks:</strong> Where VG Pay pushes real-time device status (<code className="bg-brand-accent-bg px-1 font-mono rounded">device.offline</code>, <code className="bg-brand-accent-bg px-1 font-mono rounded">merchant.onboarded</code>) directly to the Bank's systems via HMAC-secured webhooks.</li>
           </ol>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer padding */}
       <div className="h-24"></div>
