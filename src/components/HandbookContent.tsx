@@ -70,7 +70,7 @@ export function HandbookContent() {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="max-w-6xl mx-auto px-6 py-12 lg:px-12 text-brand-text space-y-16"
+      className="max-w-[1400px] mx-auto px-6 py-12 lg:px-16 text-brand-text space-y-16 transition-all duration-500 ease-in-out"
     >
       {/* Document Header */}
       <header className="space-y-4 border-b border-brand-border pb-10">
