@@ -1,6 +1,7 @@
 import React from 'react';
 import Mermaid from './Mermaid';
 import { ShieldAlert, Info, AlertTriangle, FileText } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const swimlaneChart = `
 sequenceDiagram
@@ -65,7 +66,12 @@ graph TD
 
 export function HandbookContent() {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12 lg:px-8 text-brand-text space-y-16">
+    <motion.div 
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="max-w-6xl mx-auto px-6 py-12 lg:px-12 text-brand-text space-y-16"
+    >
       {/* Document Header */}
       <header className="space-y-4 border-b border-brand-border pb-10">
         <h1 className="text-4xl sm:text-5xl font-serif italic font-light tracking-tight text-brand-text">
@@ -841,6 +847,6 @@ export function HandbookContent() {
 
       {/* Footer padding */}
       <div className="h-24"></div>
-    </div>
+    </motion.div>
   );
 }
