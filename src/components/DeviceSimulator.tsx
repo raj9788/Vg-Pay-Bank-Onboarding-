@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, RotateCcw, Volume2, QrCode } from 'lucide-react';
+import { Play, RotateCcw, Volume2, QrCode, List, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 
@@ -54,6 +54,7 @@ export function DeviceSimulator() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [stepIndex, setStepIndex] = useState(-1);
   const [announcement, setAnnouncement] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentStep = stepIndex >= 0 && stepIndex < SEQUENCE.length ? SEQUENCE[stepIndex] : null;
 
@@ -194,7 +195,7 @@ export function DeviceSimulator() {
               className="flex items-center gap-2 bg-brand-accent hover:bg-brand-accent/90 text-white px-6 py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-brand-accent/20"
             >
               <Play className="w-5 h-5" />
-              {stepIndex === SEQUENCE.length - 1 ? 'Replay' : 'Start Sequence'}
+              {stepIndex === SEQUENCE.length - 1 ? 'Replay' : 'Power On'}
             </button>
             <button 
               onClick={handleReset}
@@ -203,6 +204,13 @@ export function DeviceSimulator() {
             >
               <RotateCcw className="w-5 h-5" />
               Reset
+            </button>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 bg-brand-panel border border-brand-border hover:bg-brand-text/5 text-brand-text px-4 py-3 rounded-lg font-medium transition-colors shadow-sm ml-auto"
+              title="View Phase Details"
+            >
+              <List className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -233,6 +241,89 @@ export function DeviceSimulator() {
           <div className="sticky bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-brand-panel to-transparent pointer-events-none" />
         </div>
       </div>
+
+      {/* State Table Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-brand-panel border border-brand-border rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col overflow-hidden relative z-50"
+            >
+              <div className="flex items-center justify-between p-5 border-b border-brand-border bg-brand-sidebar">
+                <h3 className="text-xl font-serif italic text-brand-text">Boot Phase Matrix</h3>
+                <button 
+                  onClick={() => setIsModalOpen(false)} 
+                  className="p-2 text-brand-text-muted hover:text-brand-text hover:bg-brand-text/5 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="overflow-x-auto overflow-y-auto p-0">
+                <table className="w-full text-sm text-left border-collapse">
+                  <thead className="text-xs uppercase bg-brand-sidebar text-brand-text-muted sticky top-0 shadow-sm z-10">
+                    <tr>
+                      <th className="px-5 py-4 font-semibold whitespace-nowrap">Phase Description</th>
+                      <th className="px-5 py-4 font-semibold whitespace-nowrap">Status LED</th>
+                      <th className="px-5 py-4 font-semibold whitespace-nowrap">NW LED</th>
+                      <th className="px-5 py-4 font-semibold whitespace-nowrap">PWR LED</th>
+                      <th className="px-5 py-4 font-semibold whitespace-nowrap">State</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-brand-border">
+                    {SEQUENCE.map((step, idx) => {
+                      let state: 'Pending' | 'Active' | 'Completed' = 'Pending';
+                      if (isPlaying) {
+                        if (idx < stepIndex) state = 'Completed';
+                        else if (idx === stepIndex) state = (idx === SEQUENCE.length - 1) ? 'Completed' : 'Active';
+                        else if (stepIndex === SEQUENCE.length - 1 && idx === stepIndex) state = 'Completed';
+                      }
+                      
+                      return (
+                        <tr 
+                          key={idx} 
+                          className={cn(
+                            "transition-colors",
+                            state === 'Active' ? "bg-brand-accent/5" : "hover:bg-brand-text/5"
+                          )}
+                        >
+                          <td className="px-5 py-3 font-medium text-brand-text min-w-[250px]">{step.description}</td>
+                          <td className="px-5 py-3">
+                            <div className="flex items-center gap-2">
+                               <div className="w-3 h-3 rounded-full border border-black/10 dark:border-white/10" style={{ backgroundColor: getColorHex(step.statusLed) }} />
+                               <span className="capitalize text-brand-text-muted">{step.statusLed}</span>
+                            </div>
+                          </td>
+                          <td className="px-5 py-3 capitalize text-brand-text-muted">{step.nwLed.replace('-', ' ')}</td>
+                          <td className="px-5 py-3 capitalize text-brand-text-muted">{step.pwrLed.replace('-', ' ')}</td>
+                          <td className="px-5 py-3">
+                            <span className={cn(
+                              "px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase inline-block",
+                              state === 'Completed' ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" :
+                              state === 'Active' ? "bg-brand-accent/20 text-brand-accent-text" :
+                              "bg-brand-text/5 text-brand-text-dim"
+                            )}>
+                              {state}
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </motion.div>
+            
+            {/* Click outside backdrop */}
+            <div 
+              className="absolute inset-0 z-40" 
+              onClick={() => setIsModalOpen(false)}
+            />
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
