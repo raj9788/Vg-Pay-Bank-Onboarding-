@@ -1,7 +1,8 @@
-import React from 'react';
+const fs = require('fs');
+
+const content = `import React from 'react';
 import { motion } from 'motion/react';
 import { DeviceSimulator } from './DeviceSimulator';
-import Mermaid from './Mermaid';
 import { 
   Building2, Users, Goal, Route, Layers, ShieldCheck, 
   Settings, UserPlus, FileText, CheckCircle2, AlertTriangle,
@@ -133,8 +134,7 @@ export function HandbookContent() {
               <div className="absolute -left-[33px] top-1 h-4 w-4 rounded-full border-2 border-amber-500 bg-brand-panel"></div>
               <h4 className="text-lg font-bold text-brand-text">Phase 3: Technical Integration (Week 3 - 4)</h4>
               <ul className="list-disc pl-5 mt-2 space-y-1 text-brand-text-muted">
-                <li><strong>Webhook Integration (Bank as PSP):</strong> Bank develops the outbound event push to VG Pay's <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">/api/transactions</code> (or the Razorpay-compatible webhook) for payment successes.</li>
-                <li><strong>Zero Ticketing Integration:</strong> No development is required for the ticketing system, as it is handled natively by VG Pay.</li>
+                <li><strong>Webhook Integration (Bank as PSP):</strong> Bank develops the outbound event push to VG Pay's <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">/api/transactions</code> endpoint for payment successes.</li>
                 <li><strong>Network Whitelisting:</strong> Bank whitelists VG Pay API Gateways.</li>
               </ul>
             </div>
@@ -144,7 +144,7 @@ export function HandbookContent() {
               <h4 className="text-lg font-bold text-brand-text">Phase 4: Testing & UAT (Week 5)</h4>
               <ul className="list-disc pl-5 mt-2 space-y-1 text-brand-text-muted">
                 <li><strong>UAT Environment:</strong> Testing will be conducted in the actual live/UAT environment using 1-2 physical Soundbox devices provided to the Bank.</li>
-                <li><strong>Functional Testing:</strong> Simulating Agent onboarding a merchant, mapping a Soundbox, and validating Merchant Bulk Upload CSVs (if applicable).</li>
+                <li><strong>Functional Testing:</strong> Simulating Agent onboarding a merchant and mapping a Soundbox.</li>
                 <li><strong>Transaction Testing:</strong> Simulating a live UPI transaction from the Core Banking System to VG Pay and verifying the audio alert on the physical device.</li>
               </ul>
             </div>
@@ -163,35 +163,11 @@ export function HandbookContent() {
         
         <div className="space-y-4 pt-8">
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">2.2 Swimlane Diagram</h3>
-          <div className="w-full bg-brand-panel border border-brand-border rounded-xl p-4 sm:p-6 overflow-hidden shadow-inner">
-             <Mermaid chart={`sequenceDiagram
-    participant Bank as Bank CBS / IT
-    participant VGOps as VG Pay Operations
-    participant Dev as VG Pay Backend
-    participant Agent as Agent Mobile App
-    participant MQTT as Soundbox (MQTT)
-
-    Note over Bank, MQTT: Phase 1 & 2: Setup
-    Bank->>VGOps: Provide Bank Details for Setup
-    VGOps->>Dev: Create BankPartner & BANK_ADMIN
-    Dev->>VGOps: Credentials Ready
-    VGOps->>Bank: Handover Credentials
-
-    Note over Bank, MQTT: Phase 3: Integration
-    Bank->>Bank: Develop Webhook Push (Direct API or Razorpay)
-    Bank->>Dev: Whitelist PROD IPs
-
-    Note over Bank, MQTT: Phase 4: Operations
-    opt High Volume
-        Bank->>Dev: POST /api/merchants/bulk-upload (CSV)
-    end
-    Agent->>Dev: Onboard Merchant & Map Device
-    Dev-->>Agent: Success
-
-    Note over Bank, MQTT: Phase 5: Live Transaction
-    Bank->>Dev: POST /api/transactions (or webhook)
-    Dev->>Dev: Validate & Extract Device
-    Dev->>MQTT: Publish Audio Alert (Encrypted)`} />
+          <div className="w-full h-[400px] bg-brand-panel border border-brand-border rounded-xl flex flex-col items-center justify-center text-brand-text-muted italic shadow-inner">
+             <div className="flex flex-col items-center justify-center gap-4 text-brand-text-muted opacity-50">
+               <Route className="w-16 h-16" />
+               <span>Swimlane Diagram (Placeholder)</span>
+             </div>
           </div>
         </div>
       </motion.section>
@@ -211,44 +187,11 @@ export function HandbookContent() {
 
         <div className="space-y-4 pt-4">
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.1 System Architecture</h3>
-          <div className="w-full bg-brand-panel border border-brand-border rounded-xl p-4 sm:p-6 overflow-hidden shadow-inner">
-             <Mermaid chart={`graph TD
-    subgraph Bank Infrastructure
-        CBS[Core Banking System]
-        BankSwitch[UPI / Payment Switch]
-        BankIT[Bank IT Operations]
-    end
-
-    subgraph VG Pay Ecosystem
-        Gateway[API Gateway]
-        PaymentSvc[Payment Service]
-        MerchantSvc[Merchant Core Backend]
-        TicketingSvc[VG Ticketing System]
-        NotifSvc[Notification Service / FCM]
-        MqttBroker[MQTT Broker / Soundbox]
-        DB[(Primary Database)]
-    end
-
-    subgraph Client Applications
-        AgentApp[VG Pay Agent App]
-        MerchantApp[VG Pay Merchant App]
-    end
-
-    AgentApp -->|REST APIs| Gateway
-    MerchantApp -->|REST APIs| Gateway
-
-    Gateway --> MerchantSvc
-    MerchantSvc --> DB
-    MerchantSvc --> NotifSvc
-
-    Gateway -.->|Forward Complaints| TicketingSvc
-    TicketingSvc -.->|Resolution Webhook| Gateway
-
-    BankIT -->|Merchant Sync & Bulk Upload| Gateway
-    BankSwitch -->|Payment Webhook Event| Gateway
-    Gateway --> PaymentSvc
-    PaymentSvc --> DB
-    PaymentSvc --> MqttBroker`} />
+          <div className="w-full h-[450px] bg-brand-panel border border-brand-border rounded-xl flex flex-col items-center justify-center text-brand-text-muted italic shadow-inner">
+             <div className="flex flex-col items-center justify-center gap-4 text-brand-text-muted opacity-50">
+               <Layers className="w-16 h-16" />
+               <span>Architecture Diagram (Placeholder)</span>
+             </div>
           </div>
         </div>
 
@@ -285,13 +228,6 @@ export function HandbookContent() {
               <p className="text-sm text-brand-text-muted">The end-user receiving payments. Currently, the Merchant App is strictly for <strong>viewing transaction history</strong>. Since funds settle directly into the merchant's bank account, the app is read-only regarding financial operations.</p>
             </div>
           </div>
-        </div>
-        
-        <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.4 Device Management System (DMS) Web Portal</h3>
-          <p className="text-brand-text-muted leading-relaxed text-justify">
-            While field agents use mobile applications, Bank Operations teams (<code className="bg-white/10 px-1 font-mono rounded text-sm">PSP_ADMIN</code>) are provided access to a dedicated <strong>Device Management System (DMS) Web Portal</strong> hosted by the hardware partner. This desktop dashboard allows Bank administrators to monitor fleet health in real-time (e.g., devices with low battery or offline status), download comprehensive MIS reports, and manage their agents at scale.
-          </p>
         </div>
       </motion.section>
 
@@ -347,9 +283,8 @@ export function HandbookContent() {
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.3 Technical Specifications</h3>
           <ul className="list-disc pl-5 space-y-2 text-brand-text-muted text-justify">
             <li><strong>Hardware:</strong> Quectel EC200U Module, 4G LTE Cat-1 (2G fallback), 2000mAh Li-ion battery (3V cutoff).</li>
-            <li><strong>Firmware & FOTA:</strong> 30-min Heartbeat interval, OTA security & firmware integrity. To prevent business disruption, Firmware Over-The-Air (FOTA) updates are strictly pushed during a maintenance window (1:00 AM – 4:00 AM IST). The device must have at least 30% battery to initiate the update.</li>
+            <li><strong>Firmware:</strong> 30-min Heartbeat interval, OTA security & firmware integrity.</li>
             <li><strong>Compliance:</strong> BIS CRS, IEC 62133 / IS 16046 (Battery safety), IS 13252.</li>
-            <li><strong>Multi-Language Support:</strong> The device supports multiple regional languages (e.g., Hindi, Marathi, English). The default language is configured by the Agent during the initial onboarding via the Agent App. If a merchant wishes to change the language later, they can raise a support ticket, and an Agent can update it remotely via the provisioning app.</li>
           </ul>
         </div>
 
@@ -360,15 +295,6 @@ export function HandbookContent() {
             <li><strong>Not sending data to server:</strong> Check Green LED (Fast blink = OK). If Cyan, MQTT disconnected. Press RESET to restart network stack.</li>
             <li><strong>No Sound / Low Volume:</strong> Check if battery is low (amplifier disabled). Reset device to restore default volume. Check for physical blockage over speaker mesh.</li>
             <li><strong>Repeated Restarts:</strong> Charge device. Check for loose SIM. Press RESET to clear corrupt configuration.</li>
-          </ul>
-        </div>
-        <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">4.5 SIM, RMA & Inventory Logistics</h3>
-          <ul className="list-disc pl-5 space-y-2 text-brand-text-muted text-justify">
-            <li><strong>SIM Provisioning & Data Plans:</strong> VG Pay provides the S1 Soundbox pre-fitted with an M2M 4G SIM card. VG Pay bears all costs for the monthly data recharges. The Bank is not responsible for telecom logistics.</li>
-            <li><strong>Device Replacements (RMA):</strong> If a device is found defective (e.g., hardware failure, speaker issues), VG Pay will bear the courier and replacement costs. The field agent must raise a replacement ticket, and a new device will be dispatched.</li>
-            <li><strong>Merchant Offboarding:</strong> If a merchant closes their account or violates the Terms of Service, the device must be returned to VG Pay. Upon receipt, VG Pay operations will factory reset the device, change its status to <code className="bg-white/10 px-1 font-mono rounded">NEW</code>, and it will be available for re-mapping to a different merchant.</li>
-            <li><strong>Inactive Merchants:</strong> If a merchant's account is marked as <code className="bg-white/10 px-1 font-mono rounded">INACTIVE</code> but the device is not physically returned, the system will flag the device as <code className="bg-white/10 px-1 font-mono rounded">INACTIVE</code>. The Soundbox will immediately cease receiving audio confirmations, and its network access will be suspended.</li>
           </ul>
         </div>
       </motion.section>
@@ -395,24 +321,12 @@ export function HandbookContent() {
           </ul>
           <p className="italic text-sm text-brand-text-dim">Note: The exact UAT and PROD URLs for each specific microservice required for your integration will be provided directly by the VG Pay team during Phase 2.</p>
         </div>
-        <div className="space-y-4 pt-8">
-          <h4 className="text-xl font-bold text-brand-text">API Rate Limiting & Scalability</h4>
-          <p className="text-brand-text-muted leading-relaxed text-justify">
-            By default, there are no strict rate limits enforced on the REST API Gateway. The underlying webhook infrastructure (hosted on AWS) is highly scalable and currently supports up to <strong>10,000 Transactions Per Second (TPS)</strong>. If the Bank requires specific throttling limits to protect its own downstream services, this can be configured at the VG Pay API Gateway layer upon request.
-          </p>
-        </div>
-
 
         <div className="space-y-4 pt-8">
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.2 Payment Success Webhook (Bank &rarr; VG Pay)</h3>
           <p className="leading-relaxed text-brand-text-muted text-justify">
             When a UPI payment successfully credits the merchant's account, the Bank must immediately call VG Pay's Payment Service to trigger the Soundbox alert. The VG Pay system exposes two distinct integration pathways depending on the bank's capabilities.
           </p>
-
-          <div className="bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg my-6">
-            <h5 className="font-bold text-red-400 mb-2">Disclaimer: CBS Reversals & Dispute Resolution</h5>
-            <p className="text-brand-text-muted text-sm text-justify">The VG Pay platform is strictly a one-way, success-only notification layer. If the Bank's Core Banking System (CBS) registers a success, triggers the VG Pay webhook, and the Soundbox announces the payment, but the banking network subsequently reverses the transaction (a false positive), VG Pay <strong>does not</strong> support a "Reversal" audio cue. All dispute resolution, reversals, and refund management remain entirely within the Bank's domain.</p>
-          </div>
 
           <div className="bg-brand-panel p-5 mt-4 rounded-xl border border-brand-border">
             <h4 className="font-bold text-brand-text mb-3 text-lg">Pathway 1: Direct Transaction API (<code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono text-base">POST /api/transactions</code>)</h4>
@@ -442,33 +356,10 @@ export function HandbookContent() {
                <p className="text-brand-text-muted text-sm">For Pathway 2, the Bank embeds the VG Pay <code className="bg-white/10 px-1 font-mono rounded">serialNumber</code> or <code className="bg-white/10 px-1 font-mono rounded">merchantId</code> directly into the static/dynamic UPI QR code parameters generated for the merchant. When a customer scans and pays, these flow through the network to the Bank's switch, which extracts them and forwards them in the <code className="bg-white/10 px-1 font-mono rounded">notes</code> object of the webhook.</p>
             </div>
           </div>
-          
-          <div className="space-y-4 pt-6">
-            <h4 className="text-xl font-bold text-brand-text">Webhook Retry Policy</h4>
-            <p className="text-brand-text-muted leading-relaxed">In the event that the VG Pay backend is temporarily unreachable or returns an HTTP <code className="bg-white/10 px-1 font-mono rounded">5xx</code> response, the Bank's switch must implement an <strong>Exponential Backoff Retry Mechanism</strong>. Industry standard recommends retrying the webhook delivery up to 3 times (e.g., at 5 seconds, 15 seconds, and 45 seconds).</p>
-          </div>
-
-          <div className="space-y-4 pt-4">
-            <h4 className="text-xl font-bold text-brand-text">End-of-Day (EOD) Reconciliation</h4>
-            <p className="text-brand-text-muted leading-relaxed">To guarantee 100% reporting accuracy and account for any webhooks dropped due to prolonged network outages, the Bank must integrate with VG Pay's EOD Reconciliation process. At midnight (T+1), the Bank will upload a CSV file containing all successful transactions for that day (or trigger an automated Sync API). VG Pay processes this file to reconcile and flag any missing audio alerts.</p>
-          </div>
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.3 Authentication & Login Flow (REST API)</h3>
-          <p className="leading-relaxed text-brand-text-muted text-justify">
-            All REST APIs (excluding webhooks) require a valid JWT Bearer Token. Bank agents and merchants obtain this token via a secure OTP-based login flow:
-          </p>
-          <ol className="list-decimal pl-5 space-y-3 text-brand-text-muted marker:font-bold">
-            <li className="pl-2"><strong>Initiate Login:</strong> The client application sends the user's phone number and a Google reCAPTCHA token to the <code className="bg-white/10 px-1 font-mono rounded text-sm">POST /api/auth/login</code> endpoint. The backend verifies the reCAPTCHA token to prevent bot attacks.</li>
-            <li className="pl-2"><strong>OTP Verification:</strong> Upon successful reCAPTCHA validation, the backend generates and sends a One-Time Password (OTP) to the user's registered mobile number via SMS.</li>
-            <li className="pl-2"><strong>MPIN Setup/Login:</strong> The user enters the OTP. For first-time logins, the user is prompted to set a secure MPIN. For subsequent logins, the user can quickly authenticate using just their phone number and MPIN.</li>
-            <li className="pl-2"><strong>Token Generation:</strong> Upon successful verification, the backend issues a JWT (JSON Web Token) with an expiration time (e.g., 24 hours) and specific authorities. This token must be included in the <code className="bg-white/10 px-1 font-mono rounded text-sm">Authorization: Bearer &lt;token&gt;</code> header for all subsequent API requests.</li>
-          </ol>
-        </div>
-
-        <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.4 Merchant Management (REST API)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.3 Merchant Management (REST API)</h3>
           <p className="leading-relaxed text-brand-text-muted text-justify">
             Agents typically create merchants via the Mobile App, hitting the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">POST /api/merchants</code> endpoint. Additionally, Bank IT teams can utilize the full suite of CRUD endpoints (<code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">GET</code>, <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">PUT</code>, <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">DELETE</code>) to sync merchant data programmatically.
           </p>
@@ -490,7 +381,7 @@ export function HandbookContent() {
         </div>
         
         <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.5 Device Mapping (REST API)</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.4 Device Mapping (REST API)</h3>
           <p className="leading-relaxed text-brand-text-muted text-justify">
             To map a physical Soundbox to a Merchant, the Agent App calls the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">POST /api/merchant-devices</code> endpoint. This maps the device and merchant IDs and marks the physical device as <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">ASSIGNED</code> in the system.
           </p>
@@ -503,7 +394,7 @@ export function HandbookContent() {
         </div>
 
         <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.6 Standard HTTP Responses</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">5.5 Standard HTTP Responses</h3>
           <p className="text-brand-text-muted mb-2">All REST endpoints (except raw webhooks returning "ACK") follow a standardized JSON envelope (<code className="bg-white/10 px-1 font-mono rounded text-sm text-brand-accent">ResponseDTO</code>).</p>
           <ul className="list-disc pl-5 space-y-2 text-brand-text-muted text-justify">
             <li><strong>200 OK:</strong> Success / Acknowledged. Returns <code className="bg-white/10 px-1 font-mono rounded">"ACK"</code> for transaction webhooks.</li>
@@ -584,44 +475,8 @@ export function HandbookContent() {
               <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
             </div>
             <div>
-              <strong className="text-brand-text block">Secret Key Rotation</strong>
-              <span className="text-brand-text-muted text-sm">To maintain compliance with industry standards, the HMAC pre-shared secret must be rotated every 90 days. During rotation, there is a 24-hour overlap grace period where both the old and new keys are valid to prevent any webhook drop-offs or downtime.</span>
-            </div>
-          </li>
-          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
-            <div className="bg-white/10 p-2 rounded-full mt-0.5">
-              <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-            </div>
-            <div>
               <strong className="text-brand-text block">Network Whitelisting</strong>
               <span className="text-brand-text-muted text-sm">The Bank must whitelist VG Pay's Egress IPs to receive callbacks (if applicable) and VG Pay will whitelist the Bank's IPs for inbound API calls.</span>
-            </div>
-          </li>
-          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
-            <div className="bg-white/10 p-2 rounded-full mt-0.5">
-              <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-            </div>
-            <div>
-              <strong className="text-brand-text block">Data Retention & PII Lifecycle</strong>
-              <span className="text-brand-text-muted text-sm">VG Pay acts strictly as a pass-through notification layer. Transaction logs containing PII (like Payer VPA) are retained in secure storage for 5 years for dispute resolution, after which they are archived and subsequently purged, in strict adherence to banking data lifecycle regulations (e.g., RBI KYC Master Direction and PMLA Rules).</span>
-            </div>
-          </li>
-          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
-            <div className="bg-white/10 p-2 rounded-full mt-0.5">
-              <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-            </div>
-            <div>
-              <strong className="text-brand-text block">High Availability & Disaster Recovery</strong>
-              <span className="text-brand-text-muted text-sm">The VG Pay backend leverages a Multi-AZ (Availability Zone) architecture on AWS to ensure high availability. Specifics regarding Disaster Recovery (DR), including the exact Recovery Time Objective (RTO) and Recovery Point Objective (RPO), are currently being finalized and will be detailed in the formal SLA agreement.</span>
-            </div>
-          </li>
-          <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
-            <div className="bg-white/10 p-2 rounded-full mt-0.5">
-              <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-            </div>
-            <div>
-              <strong className="text-brand-text block">Immutable Audit Trails</strong>
-              <span className="text-brand-text-muted text-sm">The VG Pay backend maintains strict, immutable audit logs for all administrative actions. If a Bank Admin (<code className="bg-white/10 px-1 font-mono rounded">PSP_ADMIN</code>) deletes a merchant, changes a billing plan, or unassigns a device, the system permanently logs the exact timestamp, IP address, and user ID of who performed the action to fully satisfy internal bank audits.</span>
             </div>
           </li>
         </ul>
@@ -662,16 +517,19 @@ export function HandbookContent() {
           <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">7.2 Merchant Onboarding Steps</h3>
           <ol className="list-decimal pl-5 space-y-4 text-brand-text marker:text-brand-accent marker:font-bold">
             <li className="pl-2">
-              <strong className="text-brand-text block">Merchant Registration (Pre-Verified KYC):</strong>
-              Because the Merchant must already hold a verified bank account with the Bank itself, strict KYC and settlement account verifications (like Penny Drop) are natively handled by the Core Banking System prior to this process. Therefore, a Maker-Checker flow is not required in VG Pay. The Agent enters basic details (Business Name, Phone, Address), securely captures the merchant's <strong>Digital Signature</strong> on-screen, and the backend registers the merchant, automatically setting the status to <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">ACTIVE</code>.
+              <strong className="text-brand-text block">Merchant Registration (e-KYC):</strong>
+              The Merchant is assumed to already have a KYC-verified bank account. The Agent visits the shop, enters basic details (Business Name, Phone, Address) into the Agent App, and securely captures the merchant's <strong>Digital Signature</strong> on-screen to legally authorize the onboarding onto VG Pay.
+            </li>
+            <li className="pl-2">
+              <strong className="text-brand-text block">Approval:</strong>
+              The VG Pay backend registers the merchant. The Merchant's status is set to <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">APPROVED</code>.
             </li>
             <li className="pl-2">
               <strong className="text-brand-text block">Device Mapping:</strong>
               <ul className="list-disc pl-5 mt-2 space-y-1 text-brand-text-muted">
                 <li>Agent scans the QR code on the physical Soundbox.</li>
-                <li>The app calls <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">POST /api/merchant-devices</code> with the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">merchantId</code> and <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">deviceId</code>.</li>
+                <li>The app calls <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">POST /api/merchant-devices</code> passing the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">merchantId</code> and the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">deviceId</code>.</li>
                 <li>The backend validates the mapping and creates a record in the <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">MerchantDevice</code> table, marking the device as <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono">ASSIGNED</code>.</li>
-                <li><strong>Billing & Monetization:</strong> Upon mapping, a billing model is assigned to the merchant. VG Pay offers multiple flexible models, such as a flat upfront fee (e.g., INR 1650) with a low monthly rental (e.g., INR 49), or a lower upfront fee (e.g., INR 999) with a higher monthly rental (e.g., INR 99). The Bank's Core Banking System is responsible for auto-debiting this fee based on the agreed terms.</li>
                 <li><em className="text-brand-text-dim text-sm">Note: During this first assignment, the backend automatically provisions a <code className="bg-white/10 px-1 font-mono rounded">PSP_MERCHANT</code> user login for the merchant to access the Merchant App.</em></li>
               </ul>
             </li>
@@ -944,3 +802,6 @@ export function HandbookContent() {
     </motion.div>
   );
 }
+`;
+
+fs.writeFileSync('src/components/HandbookContent.tsx', content);

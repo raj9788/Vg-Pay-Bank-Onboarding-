@@ -1,0 +1,507 @@
+% !TEX root = vg_pay_bank_onboarding_handbook.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{amssymb}
+
+% Setup colors for listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=none,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Hyperlink styling
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={VG Pay Bank Onboarding Handbook},
+    pdfpagemode=FullScreen,
+}
+
+\title{\textbf{VG Pay Bank Onboarding Handbook}\\ \large \textit{The Complete Master Document for Bank Integrations}}
+\author{Vishwaguru Infotech}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Company Overview}
+
+\subsection{Who We Are}
+\textbf{Vishwaguru Infotech} is a startup IT Solutioning and consultancy services company with extensive experience in the design, development, implementation, and maintenance of enterprise web and mobile applications. Our primary focus is on eGovernance and Digital Payments. Our founders possess profound experience with global world-class banking and financial institutions.
+
+We provide world-class technology solutions to our customers, empowering them to convert business challenges into opportunities. Accepting limitations and going beyond them is our mantra.
+
+\subsection{Vision \& Mission}
+\textbf{Motto:} To serve people in eGovernance and digital payments areas.\\
+\textbf{Focus:} Design and development of user-friendly and secure web and mobile eGovernance and payment applications.
+
+\subsection{The Team}
+\begin{itemize}
+    \item \textbf{Mr. Rajendra Gangarde - Founder \& CEO:} Technically sophisticated professional with 27+ years of demonstrated experience.
+    \item \textbf{Mr. Vikas Modha - CTO:} Astute professional with 23+ years of hands-on experience in the Banking industry.
+    \item \textbf{Mr. Ravindra Kulkarni - GM HR:} 23+ years in leading teams and managing testing efforts for efficient project execution.
+    \item \textbf{Mr. Deepak Desai - Delivery Director:} Results-driven Senior Project Manager with a proven record of delivering projects on time and budget.
+\end{itemize}
+
+\newpage
+\section{High-Level Onboarding Process}
+
+Welcome to the \textbf{VG Pay Bank Onboarding Process}. This handbook maps out every step required to integrate a Tier-2, Cooperative, or Regional Bank into the VG Pay ecosystem as a \texttt{BankPartner}.
+
+\subsection{Onboarding Journey (Post-Agreement)}
+
+\begin{enumerate}
+    \item \textbf{Phase 1: Initiation \& Discovery (Week 1)}
+    \begin{itemize}
+        \item \textbf{Kick-off Meeting:} Alignment on business goals and architecture.
+        \item \textbf{Information Gathering:} Bank IT completes the Information Collection Template (see Section 10).
+    \end{itemize}
+    \item \textbf{Phase 2: Configuration \& Tenant Setup (Week 2)}
+    \begin{itemize}
+        \item \textbf{Tenant Creation:} VG Pay Ops creates the \texttt{BankPartner} entity.
+        \item \textbf{Role Provisioning:} VG Pay provides the \texttt{BANK\_ADMIN} credentials.
+    \end{itemize}
+    \item \textbf{Phase 3: Technical Integration (Week 3 - 4)}
+    \begin{itemize}
+        \item \textbf{Webhook Integration (Bank as PSP):} Bank develops the outbound event push to VG Pay's \texttt{/api/transactions} (or the Razorpay-compatible webhook) for payment successes.
+        \item \textbf{Zero Ticketing Integration:} No development is required for the ticketing system, as it is handled natively by VG Pay.
+        \item \textbf{Network Whitelisting:} Bank whitelists VG Pay API Gateways.
+    \end{itemize}
+    \item \textbf{Phase 4: Testing \& UAT (Week 5)}
+    \begin{itemize}
+        \item \textbf{UAT Environment:} Testing will be conducted in the actual live/UAT environment using 1-2 physical Soundbox devices provided to the Bank.
+        \item \textbf{Functional Testing:} Simulating Agent onboarding a merchant, mapping a Soundbox, and validating Merchant Bulk Upload CSVs (if applicable).
+        \item \textbf{Transaction Testing:} Simulating a live UPI transaction from the Core Banking System to VG Pay and verifying the audio alert on the physical device.
+    \end{itemize}
+    \item \textbf{Phase 5: Production Go-Live (Week 6)}
+    \begin{itemize}
+        \item \textbf{Production Deployment:} Configurations promoted to PROD.
+        \item \textbf{Penny Drop:} Real INR 1 transaction on a live Soundbox.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Swimlane Diagram}
+
+\begin{figure}[H]
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{"Arch Diagrams/swimlane.png"}}
+    \caption{Swimlane Diagram of the Onboarding Flow}
+    \label{fig:swimlane}
+\end{figure}
+
+\newpage
+\section{Architecture \& User Hierarchy}
+
+VG Pay operates a multi-tenant, event-driven architecture designed to manage Merchants and their IoT Devices (Soundboxes).
+
+\subsection{System Architecture}
+
+\begin{figure}[H]
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=\textwidth]{"Arch Diagrams/1.0.png"}}
+    \caption{VG Pay System Architecture}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{System Architecture Details}
+\begin{itemize}
+    \item \textbf{Direct Bank Transfers:} VG Pay does not hold, route, or settle funds. All UPI and digital transfers are processed directly between the payer's bank and the merchant's bank account. VG Pay acts strictly as a real-time notification and IoT management layer.
+    \item \textbf{Success-Only Triggers:} The VG Pay system is designed exclusively to trigger the Soundbox audio. Therefore, it only expects to receive webhooks for \textbf{SUCCESSFUL} transactions. Failed or pending transactions should not be pushed to VG Pay.
+\end{itemize}
+
+\subsection{User Hierarchy (Roles \& Permissions)}
+Every user in the system is assigned specific roles that govern their access:
+\begin{itemize}
+    \item \textbf{SUPER\_ADMIN:} Supreme access to VG Pay. Manages all banks, devices, and global configurations.
+    \item \textbf{PSP\_ADMIN (Bank Admin):} Top-level administrator for a specific \texttt{BankPartner}. Manages regional operations, field agents, and can view aggregate reports for their bank.
+    \item \textbf{PSP\_AGENT:} Field agent using the Agent Mobile App to onboard pre-verified merchants and map Soundboxes.
+    \item \textbf{MERCHANT:} The end-user receiving payments. Currently, the Merchant App is strictly for \textbf{viewing transaction history}. Since funds settle directly into the merchant's bank account, the app is read-only regarding financial operations.
+\end{itemize}
+
+\newpage
+\section{Payment Soundbox (S1) - Device Overview \& Manual}
+
+To ensure Bank IT and operational teams understand the edge-device capabilities, this section details the hardware and software specifications of the S1 Payment Soundbox.
+
+\subsection{Hardware Anatomy \& Setup}
+\begin{itemize}
+    \item \textbf{Box Contents:} 1 Unit of Sound Box S1.
+    \item \textbf{Front View:} Large QR code for payments (BHIM UPI). Top LEDs: Status RGB (Left), Network Green (Center), Power Red (Right).
+    \item \textbf{Side View:} Micro SIM Slot (for cellular), USB Type-C slot (5V-2A charging), Power Key, Reset pinhole.
+    \item \textbf{Top View:} Volume UP / DOWN buttons, Replay Button (repeats last payment announcement).
+\end{itemize}
+
+\textbf{Operating Instructions:}
+\begin{enumerate}
+    \item \textbf{Device Setup:} Insert a Nano SIM with an active data plan. Charge for 2.5 hours using a 5V-2A adapter via Type-C.
+    \item \textbf{Power On:} Long press POWER for 3 seconds. The RGB LED flashes Roseate White once to start the boot sequence.
+    \item \textbf{Changing SIM:} Turn off device $\rightarrow$ Change SIM $\rightarrow$ Turn on. (If changed while on, hit Reset).
+\end{enumerate}
+
+\subsection{Power Up Sequence \& LED Indicators}
+
+\subsubsection{Boot Phases}
+\begin{enumerate}
+    \item \textbf{Phase 1 (Hardware/Network Init):} Red LED (SIM check), Middle Green blink (Network search), Purple LED (DMS Registration), Cyan (FOTA check), Orange (Installing firmware).
+    \item \textbf{Phase 2 (Connectivity):} Audio announces ``Sim Inserted'' (Orange LED) and ``Network Connected'' (Cyan LED).
+    \item \textbf{Phase 3 (DMS \& MQTT):} Cyan (Connecting to DMS). Once connected, LED turns \textbf{Roseate White} (Firmware OK, SIM OK, Network OK). Audio: ``Device Online''.
+    \item \textbf{Phase 4 (VG Pay Integration):} Roseate White indicates hitting Registration and Config APIs. If successful, device connects to VG MQTT $\rightarrow$ \textbf{Blue LED}. Audio: ``Device is ready for Payments''.
+\end{enumerate}
+\textit{Note: Green LED flashes during payment announcements. Purple indicates onboarding stuck. Cyan indicates MQTT unreachable.}
+
+\subsubsection{LED Status Reference}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|p{8cm}|}
+        \hline
+        \textbf{LED Type} & \textbf{Behavior} & \textbf{Meaning \& Action} \\ \hline
+        \textbf{Green (Network)} & Slow blink & Searching for network. \\ \hline
+        \textbf{Green (Network)} & Fast blink (3-4/sec) & Registered on 4G/LTE. Ready. \\ \hline
+        \textbf{Red (Power)} & Solid / Blinking & Charging / Battery < 20\%. \\ \hline
+        \textbf{RGB (Status)} & Red & No SIM detected. \\ \hline
+        \textbf{RGB (Status)} & Purple & Onboarding incomplete/stuck. \\ \hline
+        \textbf{RGB (Status)} & Orange & Firmware update (FOTA) failed/incomplete. \\ \hline
+        \textbf{RGB (Status)} & Roseate White & Normal operation (System OK). \\ \hline
+        \textbf{RGB (Status)} & Cyan & Network connected, but MQTT unreachable. \\ \hline
+        \textbf{RGB (Status)} & Blue & Server connected, ready for payments. \\ \hline
+    \end{tabular}
+    \caption{Quick Reference: LED Indicators}
+\end{table}
+
+\subsection{Technical Specifications}
+\begin{itemize}
+    \item \textbf{Hardware:} Quectel EC200U Module, 4G LTE Cat-1 (2G fallback), 2000mAh Li-ion battery (3V cutoff).
+    \item \textbf{Firmware:} 30-min Heartbeat interval, OTA security \& firmware integrity.
+    \item \textbf{Compliance:} BIS CRS, IEC 62133 / IS 16046 (Battery safety), IS 13252.
+\end{itemize}
+
+\subsection{Troubleshooting Guide}
+\begin{itemize}
+    \item \textbf{Not turning on:} Charge for 30 mins using 5V-2A. If charging LED is off, try a different socket.
+    \item \textbf{Not sending data to server:} Check Green LED (Fast blink = OK). If Cyan, MQTT disconnected. Press RESET to restart network stack.
+    \item \textbf{No Sound / Low Volume:} Check if battery is low (amplifier disabled). Reset device to restore default volume. Check for physical blockage over speaker mesh.
+    \item \textbf{Repeated Restarts:} Charge device. Check for loose SIM. Press RESET to clear corrupt configuration.
+\end{itemize}
+
+\newpage
+\section{Technical Integration}
+
+The core integration requirement is for the Bank (acting as the PSP switch) to push real-time transaction events to VG Pay.
+
+\subsection{Environment URLs}
+\begin{itemize}
+    \item \textbf{Main API Gateway:} \texttt{https://api.vgpayglobal.com/}
+    \item \textbf{Payment / Transaction Services:} \texttt{https://payment.vgpayglobal.com/}
+    \item \textbf{Merchant Services:} \texttt{https://merchant.vgpayglobal.com/}
+\end{itemize}
+\textit{Note: The exact UAT and PROD URLs for each specific microservice required for your integration will be provided directly by the VG Pay team during Phase 2.}
+
+\subsection{Payment Success Webhook (Bank \texorpdfstring{$\rightarrow$}{->} VG Pay)}
+
+When a UPI payment successfully credits the merchant's account, the Bank must immediately call VG Pay's Payment Service to trigger the Soundbox alert. The VG Pay system exposes two distinct integration pathways depending on the bank's capabilities.
+
+\subsubsection{Pathway 1: Direct Transaction API (\texttt{POST /api/transactions})}
+This is the standard API intended for direct bank integrations.
+\begin{itemize}
+    \item \textbf{Endpoint:} \texttt{POST /api/transactions}
+    \item \textbf{Idempotency:} Driven by \texttt{transactionId} and \texttt{utr}. If a transaction with the same ID or UTR already exists, the system returns an HTTP \texttt{409 Conflict}.
+    \item \textbf{Validation:} The \texttt{amount} must be greater than zero. The system also rejects payloads if an internal \texttt{id} is present in the request body.
+    \item \textbf{Authentication:} Configured via API Gateway (e.g., standard API Key or mutual TLS) depending on the environment.
+    \item \textbf{Success Response:} HTTP \texttt{200 OK} with the plain text body \texttt{"ACK"}.
+\end{itemize}
+
+\textbf{Sample JSON Payload (\texttt{TransactionDTO}):}
+\begin{lstlisting}
+{
+  "transactionId": "pay_9Xb8Y7Z6a5B4c",
+  "utr": "312456789012",
+  "orderId": "order_xyz123",
+  "merchantId": 883,
+  "deviceId": 1042,
+  "amount": 500.00,
+  "currency": "INR",
+  "status": "SUCCESS",
+  "payerVpa": "customer@upi",
+  "payerName": "John Doe",
+  "gatewayResponse": "{\"bank_ref\": \"12345\", \"status\": \"success\"}",
+  "remarks": "Payment for order xyz123",
+  "firmwareVersion": "v1.0.4"
+}
+\end{lstlisting}
+
+\subsubsection{Pathway 2: Payment Gateway Compatible Webhook}
+This pathway is designed for banks utilizing a Razorpay-compatible webhook structure for \texttt{payment.captured} events.
+\begin{itemize}
+    \item \textbf{Endpoint:} \texttt{POST /api/razorpay/webhook} (or \texttt{/api/razorpay/webhook/payment})
+    \item \textbf{Authentication (HMAC SHA-256):} The webhook must include the \texttt{X-Razorpay\allowbreak-Signature} header. This is an HMAC SHA-256 hex-encoded hash of the raw payload string using a pre-shared secret provided by VG Pay.
+    \item \textbf{Event Matching:} The payload must specify \texttt{"event": "payment.captured"}.
+    \item \textbf{Parameter Extraction:} To route the transaction to the correct device, the Bank must pass the mapping in the \texttt{payload.payment.entity.notes} object. The system automatically searches for keys such as \texttt{merchantId} or \texttt{serialNumber}.
+    \item \textbf{Success Response:} HTTP \texttt{200 OK} with the plain text body \texttt{"ACK"}.
+\end{itemize}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=How does the Bank get the Device or Merchant ID?]
+For Pathway 2, the Bank embeds the VG Pay \texttt{serialNumber} or \texttt{merchantId} directly into the static/dynamic UPI QR code parameters generated for the merchant. When a customer scans and pays, these flow through the network to the Bank's switch, which extracts them and forwards them in the \texttt{notes} object of the webhook.
+\end{tcolorbox}
+
+\subsection{Merchant Management (REST API)}
+
+Agents typically create merchants via the Mobile App, hitting the \texttt{POST /api/merchants} endpoint. Additionally, Bank IT teams can utilize the full suite of CRUD endpoints (\texttt{GET}, \texttt{PUT}, \texttt{DELETE}) to sync merchant data programmatically.
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Strict Business Rules]
+\begin{itemize}
+    \item \textbf{Auto-Generated Code:} The Merchant \texttt{code} (e.g., \texttt{VGPAYMERCHANT00000001}) is auto-generated by the backend. Do not pass \texttt{id} or \texttt{code} in the \texttt{POST} payload, or the request will be rejected.
+    \item \textbf{Deletion \& Inactivation:} A merchant cannot be marked as \texttt{INACTIVE} or deleted if they still have devices assigned to them. You must first unassign all devices via the Device Mapping API, otherwise the system will return a \texttt{409 Conflict}.
+\end{itemize}
+\end{tcolorbox}
+
+For high-volume onboarding, Bank operations can utilize the \texttt{POST /api/\allowbreak merchants/\allowbreak bulk-upload} endpoint. This accepts a CSV \texttt{multipart/\allowbreak form-data} file containing merchant details, allowing thousands of merchants to be provisioned in a single request.
+
+\textbf{Authentication:} Bearer Token with \texttt{MERCHANT\_CREATE} / \allowbreak \texttt{MERCHANT\_VIEW} / \allowbreak \texttt{MERCHANT\_UPDATE} / \allowbreak \texttt{MRCHANT\_BULK\_UPLOAD} authorities.
+
+\textbf{Sample JSON Payload (\texttt{MerchantDTO}):}
+\begin{lstlisting}
+{
+  "businessName": "Sharma Supermarket",
+  "contactName": "Rahul Sharma",
+  "phoneNumber": "9876543210",
+  "email": "rahul@sharma.com",
+  "address": "123 Main St, Hinjawadi, Pune",
+  "bankPartnerId": 1
+}
+\end{lstlisting}
+
+\subsection{Device Mapping (REST API)}
+
+To map a physical Soundbox to a Merchant, the Agent App calls the \texttt{POST /api/\allowbreak merchant-devices} endpoint. This maps the device and merchant IDs and marks the physical device as \texttt{ASSIGNED} in the system.
+
+\textbf{Business Rule:} Devices can only be assigned to a merchant if the merchant's status is \texttt{ACTIVE}. If the device is already assigned elsewhere, the API returns a \texttt{409 Conflict}.
+
+\textbf{Authentication:} Bearer Token with \texttt{MERCHANT\_DEVICE\_MANAGE} authority.
+
+\textbf{Sample JSON Payload (\texttt{MerchantDeviceDTO}):}
+\begin{lstlisting}
+{
+  "merchantId": 9845,
+  "deviceId": 2049,
+  "bankPartnerId": 1
+}
+\end{lstlisting}
+
+\subsection{Standard HTTP Responses}
+\textbf{Standard Response Payload (\texttt{ResponseDTO}):}
+All REST endpoints (except raw webhooks returning "ACK") follow a standardized JSON envelope:
+\begin{lstlisting}
+{
+  "responseCode": 200,
+  "responseMessage": "Success Message",
+  "data": { ... } // Or null in case of error
+}
+\end{lstlisting}
+
+The VG Pay APIs utilize standard HTTP status codes. Expected responses include:
+\begin{itemize}
+    \item \textbf{200 OK:} Success / Acknowledged. Returns \texttt{"ACK"} for transaction webhooks.
+    \item \textbf{400 Bad Request:} Invalid input or missing fields (e.g., missing or zero \texttt{amount}, passing an internal \texttt{id} on a POST request).
+    \item \textbf{401/403 Forbidden:} Invalid HMAC signature (\texttt{X-Razorpay-Signature}) or unauthorized access.
+    \item \textbf{404 Not Found:} Requested resource (e.g., Device or Transaction) not found.
+    \item \textbf{409 Conflict:} Duplicate resource detected (e.g., a transaction with the same \texttt{transaction\allowbreak Id} or \texttt{utr} already exists).
+    \item \textbf{500 Internal Server Error:} Unexpected server-side failure or parsing error.
+\end{itemize}
+
+\newpage
+\section{Security \& Infrastructure Checklist}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=IMPORTANT]
+Security is paramount. The following must be adhered to before UAT sign-off.
+\end{tcolorbox}
+
+\begin{itemize}
+    \item \textbf{Data Residency \& Cloud Infrastructure:} The VG Pay backend is currently hosted on \textbf{AWS Mumbai}, ensuring all merchant and transaction data is stored strictly within India to comply with data localization regulations. Additionally, the microservices architecture allows the VG Pay backend to be deployed \textbf{On-Premise directly on the Bank's own servers} if strict internal policies require it.
+    \item \textbf{Mobile App Security (Zero-Trust):} The VG Pay Agent and Merchant mobile applications natively enforce \textbf{Root \& Jailbreak Detection} blocking execution on compromised devices. Access is further gated by mandatory \textbf{Biometric Authentication} (Fingerprint/FaceID).
+    \item \textbf{SSL/TLS:} All VG Pay endpoints enforce HTTPS (TLS 1.2+). HTTP traffic is instantly dropped.
+    \item \textbf{Payload Encryption:} Ensure personally identifiable information (PII) like \texttt{payerVpa} is masked or handled per compliance guidelines. Internally, the VG Pay backend encrypts sensitive data (like VPA and Payer Name) before storing it in the database.
+    \item \textbf{Webhook Authentication:} For Pathway 2 (Razorpay-compatible), Bank Webhooks to VG Pay must be authenticated using \textbf{HMAC SHA-256 signatures}. The bank computes a hash of the payload using a pre-shared secret and passes it in the header (e.g., \texttt{X-Razorpay\allowbreak-Signature}). The VG Pay backend actively validates this signature before processing the event. (Pathway 1 uses standard API keys / mTLS).
+    \item \textbf{Network Whitelisting:} The Bank must whitelist VG Pay's Egress IPs to receive callbacks (if applicable) and VG Pay will whitelist the Bank's IPs for inbound API calls.
+\end{itemize}
+
+\section{Merchant \& Agent Onboarding Workflows}
+
+The onboarding process encompasses creating administrative roles and field agents, leading up to merchant registration via the \textbf{VG Pay Agent App}.
+
+\subsection{Agent Provisioning Workflow}
+\begin{enumerate}
+    \item \textbf{Super Admin Creation:} The VG Pay Super Admin creates a Bank Admin user within the Agent App.
+    \item \textbf{Bank Admin Delegation:} The newly created Bank Admin can then onboard other bank personnel, 3rd party vendors, or direct field agents.
+    \item \textbf{Merchant Onboarding Power:} Both the Bank Admins and the field Agents have the authority to onboard merchants directly.
+\end{enumerate}
+
+\subsection{Merchant Onboarding Steps}
+\begin{enumerate}
+    \item \textbf{Merchant Registration (e-KYC):} The Merchant is assumed to already have a KYC-verified bank account. The Agent visits the shop, enters basic details (Business Name, Phone, Address) into the Agent App, and securely captures the merchant's \textbf{Digital Signature} on-screen to legally authorize the onboarding onto VG Pay.
+    \item \textbf{Approval:} The VG Pay backend registers the merchant. The Merchant's status is set to \texttt{APPROVED}.
+    \item \textbf{Device Mapping:}
+    \begin{itemize}
+        \item Agent scans the QR code on the physical Soundbox.
+        \item The app calls \texttt{POST /api/\allowbreak merchant-devices} passing the \texttt{merchantId} and the \texttt{deviceId}.
+        \item The backend validates the mapping and creates a record in the \texttt{MerchantDevice} table, marking the device as \texttt{ASSIGNED}.
+        \item \textit{Note:} During this first assignment, the backend automatically provisions a \texttt{PSP\_\allowbreak MERCHANT} user login for the merchant to access the Merchant App.
+    \end{itemize}
+    \item \textbf{Activation:} The Soundbox connects to the MQTT broker, downloads initial config, and is ready for the first transaction.
+\end{enumerate}
+
+\newpage
+\section{Ticketing \& Support Flow}
+
+VG Pay natively integrates with the \textbf{VG Ticketing System} to provide a seamless, closed-loop support flow for both merchants and field agents.
+
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=No Bank Integration Required]
+The Bank IT team is \textbf{not} required to integrate their own ticketing system or develop any webhooks for this process. The entire support lifecycle, including ticket creation and resolution notifications, is handled completely internally within the VG Pay ecosystem.
+\end{tcolorbox}
+
+\subsection{End-to-End Ticketing Architecture}
+\begin{enumerate}
+    \item \textbf{Ticket Creation (Mobile App $\rightarrow$ VG Pay):}
+    \begin{itemize}
+        \item Merchants or Agents can raise complaints (e.g., Soundbox hardware faults, transaction disputes) directly from their mobile application.
+        \item The mobile app sends a \texttt{POST /api/complaints} request to the VG Pay backend, passing a \texttt{ComplaintsDTO} payload with the issue details and the merchant ID.
+    \end{itemize}
+
+    \item \textbf{System Forwarding (VG Pay $\rightarrow$ VG Ticketing System):}
+    \begin{itemize}
+        \item Upon receiving the complaint, the VG Pay backend validates the payload, generates a unique internal \texttt{referenceNumber}, and triggers an asynchronous notification (\texttt{notify-merchant-complaint}).
+        \item The issue is securely forwarded to the VG Ticketing System via an outbound API call, converting it into an actionable support ticket for the operations team.
+    \end{itemize}
+
+    \item \textbf{Ticket Tracking (Mobile App $\rightarrow$ VG Pay):}
+    \begin{itemize}
+        \item Merchants can track their open ticket statuses by calling the \texttt{GET /api/\allowbreak complaints/\allowbreak all} endpoint. This supports pagination, filtering, and sorting.
+    \end{itemize}
+
+    \item \textbf{Resolution \& Webhook (VG Ticketing System $\rightarrow$ VG Pay):}
+    \begin{itemize}
+        \item When the support agent marks the ticket as "Closed" or "Resolved" in the VG Ticketing System, it fires a webhook back to VG Pay's \texttt{TicketWebhookController}.
+        \item Specifically, the system sends a \texttt{TicketClosed\allowbreak WebhookDTO} payload to the \texttt{POST /api/\allowbreak ticketing/\allowbreak ticket-closed} endpoint.
+    \end{itemize}
+
+    \item \textbf{Final Notification (VG Pay $\rightarrow$ Merchant):}
+    \begin{itemize}
+        \item The VG Pay backend processes this closure event and immediately triggers a push notification to the merchant's device (via Firebase Cloud Messaging) to inform them that their issue is resolved.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{SLAs and Escalation Matrix}
+
+\subsubsection{Service Level Agreements (SLAs)}
+VG Pay adheres to strict SLAs based on the priority and business impact of the reported issue. The SLA timer begins immediately upon ticket creation.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Priority} & \textbf{Business Impact} & \textbf{Ack. SLA} & \textbf{Resolution SLA} \\ \hline
+        \textbf{P1} & Device not functional (Business stopped) & 30 mins & 4 hours \\ \hline
+        \textbf{P2} & Partial impact (e.g., low volume) & 2 hours & 24 hours \\ \hline
+        \textbf{P3} & Usage queries or informational & 4 hours & 72 hours \\ \hline
+    \end{tabular}
+    \caption{Ticket Resolution SLAs}
+\end{table}
+
+\textbf{Device Replacement (RMA) SLA:}
+\begin{itemize}
+    \item \textbf{P1:} Same day / Next business day
+    \item \textbf{P2:} Within 2 business days
+    \item \textbf{P3:} As scheduled
+\end{itemize}
+
+\subsubsection{Support Levels and Escalation Matrix}
+If an issue is at risk of breaching its SLA, or if it involves complex defects, it will be escalated through the following tiers:
+
+\begin{itemize}
+    \item \textbf{L1 (Frontline Support):} Initial troubleshooting. Escalates to L2 if SLA is at risk.
+    \item \textbf{L2 (Technical Support):} Advanced diagnostics and RMA approvals. Escalates to L3 for product defects.
+    \item \textbf{L3 (Engineering / OEM):} Firmware patches and product fixes. Escalates to Management for repeated failures.
+    \item \textbf{Management:} Handles critical escalations and Bank-level communication for P1/Major incidents.
+\end{itemize}
+
+\newpage
+\section{Pre-Go-Live Checklists}
+
+\subsection{Bank IT / Network Team}
+\begin{itemize}[label=$\square$]
+    \item IP Whitelisting completed for UAT and PROD.
+    \item Bank switch updated to push \texttt{/api/transactions} to VG Pay on successful UPI credits.
+    \item Webhook timeouts configured appropriately (recommend 3-5 seconds).
+    \item Error handling built for 4xx and 5xx responses from VG Pay (refer to the Standard HTTP Responses section).
+\end{itemize}
+
+\subsection{VG Pay Operations}
+\begin{itemize}[label=$\square$]
+    \item \texttt{BankPartner} created in PROD Database.
+    \item Initial \texttt{BANK\_ADMIN} user generated and credentials securely handed over.
+    \item Inventory (Soundboxes) allocated to the Bank in the backend system.
+    \item Bank Admin trained and verified for Agent provisioning.
+\end{itemize}
+
+\section{Bank Information Collection Template}
+
+\textit{Please fill out this template during Phase 1.}
+
+\textbf{1. General Details}
+\begin{itemize}
+    \item Bank Name:
+    \item Bank PSP Code:
+    \item Registered Address:
+    \item Primary Business Contact (Name/Email/Phone):
+\end{itemize}
+
+\textbf{2. Technical Details}
+\begin{itemize}
+    \item Egress IPs for inbound API calls to VG Pay:
+    \item Technical Lead (Name/Email/Phone):
+    \item Escalation Contacts for Support (L1/L2/L3):
+\end{itemize}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=NOTE: Future Scope Considerations]
+To support aggressive scaling, VG Pay's roadmap includes expanding the \texttt{BankPartner} configurations. In future releases, this onboarding document will require Banks to provide:
+\begin{enumerate}
+    \item \textbf{Custom UI Themes \& Branding:} Bank logos and HEX colors for white-labeling the Merchant App.
+    \item \textbf{Custom SMS/Email Gateways:} Providing your own Twilio/AWS SNS credentials for merchant communications.
+    \item \textbf{Bi-directional Webhooks:} Where VG Pay pushes real-time device status (\texttt{device.offline}, \texttt{merchant.onboarded}) directly to the Bank's systems via HMAC-secured webhooks.
+\end{enumerate}
+\end{tcolorbox}
+
+\end{document}

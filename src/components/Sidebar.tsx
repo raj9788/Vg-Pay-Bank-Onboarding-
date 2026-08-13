@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
-import { BookOpen, Moon, Sun } from 'lucide-react';
+import { BookOpen, Moon, Sun, ShieldCheck } from 'lucide-react';
 import { useActiveSection } from '../hooks/useActiveSection';
 
 const sections = [
@@ -19,9 +19,11 @@ const sections = [
 interface SidebarProps {
   className?: string;
   onLinkClick?: () => void;
+  currentView: 'handbook' | 'compliance';
+  onViewChange: (view: 'handbook' | 'compliance') => void;
 }
 
-export function Sidebar({ className, onLinkClick }: SidebarProps) {
+export function Sidebar({ className, onLinkClick, currentView, onViewChange }: SidebarProps) {
   const activeSection = useActiveSection(sections.map(s => s.id));
   const [isDark, setIsDark] = useState(true); // default to true since original design was updated to dark
 
@@ -41,12 +43,24 @@ export function Sidebar({ className, onLinkClick }: SidebarProps) {
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      // Update URL hash without jumping
-      window.history.pushState(null, '', `#${id}`);
+    if (currentView !== 'handbook') {
+      onViewChange('handbook');
+      // Let React render the handbook first, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          window.history.pushState(null, '', `#${id}`);
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', `#${id}`);
+      }
     }
+    
     if (onLinkClick) onLinkClick();
   };
 
@@ -66,7 +80,7 @@ export function Sidebar({ className, onLinkClick }: SidebarProps) {
         <nav className="space-y-1.5">
           <div className="text-[10px] uppercase text-brand-text-dim font-bold mb-2 px-2">Documentation</div>
           {sections.map((section) => {
-            const isActive = activeSection === section.id;
+            const isActive = currentView === 'handbook' && activeSection === section.id;
             return (
               <a
                 key={section.id}
@@ -86,13 +100,29 @@ export function Sidebar({ className, onLinkClick }: SidebarProps) {
         </nav>
       </div>
       
-      <div className="p-6 border-t border-brand-border">
+      <div className="p-4 border-t border-brand-border space-y-1">
         <button 
           onClick={toggleTheme}
           className="flex items-center justify-between w-full p-2 text-sm text-brand-text-muted hover:text-brand-text hover:bg-brand-text/5 rounded-md transition-colors"
         >
           <span className="font-medium">{isDark ? 'Dark Theme' : 'Light Theme'}</span>
           {isDark ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+        </button>
+        
+        <button
+          onClick={() => {
+            onViewChange('compliance');
+            if (onLinkClick) onLinkClick();
+          }}
+          className={cn(
+            "flex items-center justify-between w-full p-2 text-sm rounded-md transition-colors",
+            currentView === 'compliance' 
+              ? "bg-brand-accent-bg text-brand-accent-text" 
+              : "text-brand-text-muted hover:text-brand-text hover:bg-brand-text/5"
+          )}
+        >
+          <span className="font-medium">Compliance & Certs</span>
+          <ShieldCheck className="w-4 h-4" />
         </button>
       </div>
     </div>

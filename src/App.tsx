@@ -8,9 +8,11 @@ import { Menu, X } from 'lucide-react';
 import { cn } from './lib/utils';
 import { Sidebar } from './components/Sidebar';
 import { HandbookContent } from './components/HandbookContent';
+import { ComplianceContent } from './components/ComplianceContent';
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'handbook' | 'compliance'>('handbook');
 
   return (
     <div className="flex h-screen bg-brand-bg text-brand-text overflow-hidden font-sans">
@@ -25,25 +27,29 @@ export default function App() {
       {/* Sidebar - Desktop & Mobile */}
       <div 
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 transform bg-brand-sidebar border-r border-brand-border transition-transform duration-300 ease-in-out lg:static lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 w-64 transform bg-brand-sidebar border-r border-brand-border transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 flex flex-col",
           mobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         )}
       >
-        <div className="absolute right-4 top-4 lg:hidden">
+        <div className="absolute right-4 top-4 lg:hidden z-50">
           <button 
             onClick={() => setMobileMenuOpen(false)}
-            className="p-2 text-brand-text-muted hover:bg-white/10 rounded-md"
+            className="p-2 text-brand-text-muted hover:bg-white/10 rounded-md bg-brand-sidebar/50 backdrop-blur-md"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-        <Sidebar onLinkClick={() => setMobileMenuOpen(false)} />
+        <Sidebar 
+          onLinkClick={() => setMobileMenuOpen(false)} 
+          currentView={currentView}
+          onViewChange={setCurrentView}
+        />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         {/* Mobile header */}
-        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-brand-border bg-brand-sidebar">
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-brand-border bg-brand-sidebar sticky top-0 z-30">
           <div className="flex items-center gap-2">
             <span className="font-bold text-brand-text">VG Pay Docs</span>
           </div>
@@ -59,7 +65,7 @@ export default function App() {
         <main className="flex-1 overflow-y-auto bg-grid-pattern bg-watermark relative">
           <div className="absolute inset-0 bg-brand-bg/80 pointer-events-none -z-10" />
           <div className="finance-circuit-bg text-brand-text" />
-          <HandbookContent />
+          {currentView === 'handbook' ? <HandbookContent /> : <ComplianceContent />}
         </main>
       </div>
     </div>
