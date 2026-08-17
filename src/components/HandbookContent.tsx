@@ -132,6 +132,9 @@ export function HandbookContent() {
             <div className="relative">
               <div className="absolute -left-[33px] top-1 h-4 w-4 rounded-full border-2 border-amber-500 bg-brand-panel"></div>
               <h4 className="text-lg font-bold text-brand-text">Phase 3: Technical Integration (Week 3 - 4)</h4>
+              <p className="text-sm text-brand-text-muted italic mt-1">
+                (Note: This timeline is highly dependent on the readiness and release cycle of the Bank's Core Banking System or Switch vendor).
+              </p>
               <ul className="list-disc pl-5 mt-2 space-y-1 text-brand-text-muted">
                 <li><strong>Webhook Integration (Bank as PSP):</strong> Bank develops the outbound event push to VG Pay's <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm text-brand-accent font-mono">/api/transactions</code> (or the Razorpay-compatible webhook) for payment successes.</li>
                 <li><strong>Zero Ticketing Integration:</strong> No development is required for the ticketing system, as it is handled natively by VG Pay.</li>
@@ -281,16 +284,19 @@ export function HandbookContent() {
               <p className="text-sm text-brand-text-muted">Field agent using the Agent Mobile App to onboard pre-verified merchants and map Soundboxes.</p>
             </div>
             <div className="bg-brand-panel p-5 rounded-xl border border-brand-border">
-              <h4 className="font-bold text-brand-text text-lg flex items-center gap-2 mb-2"><Smartphone className="w-5 h-5 text-amber-500" /> MERCHANT</h4>
+              <h4 className="font-bold text-brand-text text-lg flex items-center gap-2 mb-2"><Smartphone className="w-5 h-5 text-amber-500" /> PSP_MERCHANT (Merchant)</h4>
               <p className="text-sm text-brand-text-muted">The end-user receiving payments. Currently, the Merchant App is strictly for <strong>viewing transaction history</strong>. Since funds settle directly into the merchant's bank account, the app is read-only regarding financial operations.</p>
             </div>
           </div>
         </div>
         
         <div className="space-y-4 pt-8">
-          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.4 Device Management System (DMS) Web Portal</h3>
+          <h3 className="text-2xl sm:text-3xl font-serif italic text-brand-accent">3.4 Device Management System (DMS) Web Portal [Future Scope / Under Discussion]</h3>
+          <p className="text-brand-text-muted leading-relaxed text-justify mb-4">
+            <strong className="text-brand-text italic">Note:</strong> <em className="text-brand-text-dim">The DMS Web Portal is a future feature managed by our hardware partner. Its availability is currently under discussion.</em>
+          </p>
           <p className="text-brand-text-muted leading-relaxed text-justify">
-            While field agents use mobile applications, Bank Operations teams (<code className="bg-white/10 px-1 font-mono rounded text-sm">PSP_ADMIN</code>) are provided access to a dedicated <strong>Device Management System (DMS) Web Portal</strong> hosted by the hardware partner. This desktop dashboard allows Bank administrators to monitor fleet health in real-time (e.g., devices with low battery or offline status), download comprehensive MIS reports, and manage their agents at scale.
+            While field agents use mobile applications, Bank Operations teams (<code className="bg-white/10 px-1 font-mono rounded text-sm">PSP_ADMIN</code>) may in the future be provided access to a dedicated <strong>Device Management System (DMS) Web Portal</strong> hosted by the hardware partner. This desktop dashboard would allow Bank administrators to monitor fleet health in real-time (e.g., devices with low battery or offline status), download comprehensive MIS reports, and manage their agents at scale.
           </p>
         </div>
       </motion.section>
@@ -448,10 +454,7 @@ export function HandbookContent() {
             <p className="text-brand-text-muted leading-relaxed">In the event that the VG Pay backend is temporarily unreachable or returns an HTTP <code className="bg-white/10 px-1 font-mono rounded">5xx</code> response, the Bank's switch must implement an <strong>Exponential Backoff Retry Mechanism</strong>. Industry standard recommends retrying the webhook delivery up to 3 times (e.g., at 5 seconds, 15 seconds, and 45 seconds).</p>
           </div>
 
-          <div className="space-y-4 pt-4">
-            <h4 className="text-xl font-bold text-brand-text">End-of-Day (EOD) Reconciliation</h4>
-            <p className="text-brand-text-muted leading-relaxed">To guarantee 100% reporting accuracy and account for any webhooks dropped due to prolonged network outages, the Bank must integrate with VG Pay's EOD Reconciliation process. At midnight (T+1), the Bank will upload a CSV file containing all successful transactions for that day (or trigger an automated Sync API). VG Pay processes this file to reconcile and flag any missing audio alerts.</p>
-          </div>
+
         </div>
 
         <div className="space-y-4 pt-8">
@@ -612,7 +615,7 @@ export function HandbookContent() {
             </div>
             <div>
               <strong className="text-brand-text block">High Availability & Disaster Recovery</strong>
-              <span className="text-brand-text-muted text-sm">The VG Pay backend leverages a Multi-AZ (Availability Zone) architecture on AWS to ensure high availability. Specifics regarding Disaster Recovery (DR), including the exact Recovery Time Objective (RTO) and Recovery Point Objective (RPO), are currently being finalized and will be detailed in the formal SLA agreement.</span>
+              <span className="text-brand-text-muted text-sm">The VG Pay backend leverages a Multi-AZ (Availability Zone) architecture on AWS to ensure high availability. Specifics regarding Disaster Recovery (DR), including the exact Recovery Time Objective (RTO) and Recovery Point Objective (RPO), are currently being finalized and will be detailed in the formal SLA agreement. <strong className="text-brand-text">[Placeholder: RTO/RPO values to be defined in SLA]</strong></span>
             </div>
           </li>
           <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 space-x-3">
@@ -844,7 +847,7 @@ export function HandbookContent() {
               </li>
               <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
-                <span className="text-brand-text text-sm leading-tight">Initial <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">BANK_ADMIN</code> user generated and credentials securely handed over.</span>
+                <span className="text-brand-text text-sm leading-tight">Initial <code className="bg-white/10 px-1 rounded text-brand-accent font-mono text-xs">PSP_ADMIN (Bank Admin)</code> user generated and credentials securely handed over.</span>
               </li>
               <li className="flex items-start hover:bg-brand-text/5 p-2 -mx-2 rounded-lg transition-colors duration-200 gap-3">
                 <input type="checkbox" className="mt-1 rounded text-brand-accent focus:ring-amber-500 w-4 h-4 cursor-pointer" />
@@ -908,7 +911,15 @@ export function HandbookContent() {
               <span className="w-48 text-sm font-medium text-brand-text-dim pt-2">Egress IPs for inbound API calls to VG Pay</span>
               <textarea className="flex-1 rounded-md border-brand-border-strong shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2 border bg-white/5 text-brand-text" rows={2} placeholder="Comma separated IPs"></textarea>
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 border-b border-brand-border pb-4">
+              <span className="w-48 text-sm font-medium text-brand-text-dim pt-2">Bank's Target Webhook URL (If applicable)</span>
+              <input type="url" className="flex-1 rounded-md border-brand-border-strong shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2 border bg-white/5 text-brand-text" placeholder="https://" />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 border-b border-brand-border pb-4">
+              <span className="w-48 text-sm font-medium text-brand-text-dim pt-2">Public Key / Certificate Contacts (For mTLS)</span>
+              <textarea className="flex-1 rounded-md border-brand-border-strong shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2 border bg-white/5 text-brand-text" rows={2} placeholder="Contact info or details"></textarea>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 border-b border-brand-border pb-4">
               <span className="w-48 text-sm font-medium text-brand-text-dim pt-2">Technical Lead</span>
               <div className="flex-1 space-y-2">
                 <input type="text" className="w-full rounded-md border-brand-border-strong shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm p-2 border bg-white/5 text-brand-text" placeholder="Name" />
